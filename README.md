@@ -2,4 +2,4 @@
 
 学习资料：
 
-1、https://learn.shareai.run/zh/
+Vol.1：https://learn.shareai.run/zh/
