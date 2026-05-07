@@ -5,3 +5,4 @@
 1、https://learn.shareai.run/zh/
 
 2、https://github.com/datawhalechina/hello-agents/tree/main
+3、https://zhuanlan.zhihu.com/p/1990404048021652655
