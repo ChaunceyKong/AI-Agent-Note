@@ -2,4 +2,6 @@
 
 学习资料：
 
-Vol.1：https://learn.shareai.run/zh/
+1、https://learn.shareai.run/zh/
+
+2、https://github.com/datawhalechina/hello-agents/tree/main
