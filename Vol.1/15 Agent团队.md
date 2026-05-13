@@ -21,3 +21,64 @@ Agent团队与subagent的区别：
 
 ## 最小心智模型
 
+每个队友都是 一个有自己循环、自己收件箱、自己上下文的人。
+
+```
+lead
+  |
+  +-- spawn alice (coder)
+  +-- spawn bob (tester)
+  |
+  +-- send message --> alice inbox
+  +-- send message --> bob inbox
+
+alice
+  |
+  +-- 自己的 messages
+  +-- 自己的 inbox
+  +-- 自己的 agent loop
+
+bob
+  |
+  +-- 自己的 messages
+  +-- 自己的 inbox
+  +-- 自己的 agent loop
+```
+
+## 关键数据结构
+
+1、TeamMember
+
+```
+member = {
+    "name": "alice",
+    "role": "coder",
+    "status": "working",
+}
+```
+
+`name`：名字
+
+`role`：角色
+
+`status`：状态
+
+2、TeamConfig
+
+```
+config = {
+    "team_name": "default",
+    "members": [member1, member2],
+}
+```
+
+它通常可以放在：`.team/config.json`
+
+这份名册让系统重启以后，仍然知道：
+
+团队里曾经有谁
+
+每个人当前是什么角色
+
+
+
