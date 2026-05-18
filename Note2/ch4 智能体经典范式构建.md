@@ -20,7 +20,7 @@ ReAct工作范式是思考+行动相辅相成，即：
 - observation：工具的返回结果；
 
 智能体不断重复thought->action->observation过程，并不断把之前的结果加入到上下文中，指导下一次action，直到它在thought中认为已经找到了答案，然后输出最终结果。形式化的表达，则是：
-当前时间t下的思考$$th_t$$和行动$$a_{t}$$为
+当前时间t下的思考$th_t$和行动$$a_{t}$$为
 
 $$
 \left( th_t , a_t \right) = \pi (q, (a _1,o _1), (a _2,o _2), ..., (a _{t-1}，o _{t-1}))
