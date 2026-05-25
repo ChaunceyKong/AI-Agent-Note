@@ -234,6 +234,50 @@ PLANNER_PROMPT_TEMPLATE = """
 
 这个提示词通过以下几点确保了输出的质量和稳定性：
 
-角色设定： “顶级的AI规划专家”，激发模型的专业能力。
-任务描述： 清晰地定义了“分解问题”的目标。
-格式约束： 强制要求输出为一个 Python 列表格式的字符串，这极大地简化了后续代码的解析工作，使其比解析自然语言更稳定、更可靠。
+- 角色设定： “顶级的AI规划专家”，激发模型的专业能力。
+- 任务描述： 清晰地定义了“分解问题”的目标。
+- 格式约束： 强制要求输出为一个 Python 列表格式的字符串，这极大地简化了后续代码的解析工作，使其比解析自然语言更稳定、更可靠。
+
+接下来将这个提示词封装成一个 `Planner`类：
+
+```python
+# 假定 llm_client.py 中的 HelloAgentsLLM 类已经定义好
+# from llm_client import HelloAgentsLLM
+
+class Planner:
+    def __init__(self, llm_client):
+        self.llm_client = llm_client
+
+    def plan(self, question: str) -> list[str]:
+        """
+        根据用户问题生成一个行动计划。
+        """
+        prompt = PLANNER_PROMPT_TEMPLATE.format(question=question)
+        
+        # 为了生成计划，我们构建一个简单的消息列表
+        messages = [{"role": "user", "content": prompt}]
+        
+        print("--- 正在生成计划 ---")
+        # 使用流式输出来获取完整的计划
+        response_text = self.llm_client.think(messages=messages) or ""
+        
+        print(f"✅ 计划已生成:\n{response_text}")
+        
+        # 解析LLM输出的列表字符串
+        try:
+            # 找到```python和```之间的内容
+            plan_str = response_text.split("```python")[1].split("```")[0].strip()
+            # 使用ast.literal_eval来安全地执行字符串，将其转换为Python列表
+            plan = ast.literal_eval(plan_str)
+            return plan if isinstance(plan, list) else []
+        except (ValueError, SyntaxError, IndexError) as e:
+            print(f"❌ 解析计划时出错: {e}")
+            print(f"原始响应: {response_text}")
+            return []
+        except Exception as e:
+            print(f"❌ 解析计划时发生未知错误: {e}")
+            return []
+```
+
+#### solve阶段
+
