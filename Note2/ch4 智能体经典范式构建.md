@@ -226,9 +226,9 @@ PLANNER_PROMPT_TEMPLATE = """
 问题: {question}
 
 请严格按照以下格式输出你的计划,```python与```作为前后缀是必要的:
-```python
+\```python
 ["步骤1", "步骤2", "步骤3", ...]
-```
+\```
 """
 ```
 
